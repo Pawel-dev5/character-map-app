@@ -1,0 +1,106 @@
+{
+  "app": {
+    "title": "Character on Map",
+    "subtitle": "React with TypeScript - Arrow key controls"
+  },
+  "characterForm": {
+    "title": "Character Settings",
+    "nameLabel": "Character Name:",
+    "namePlaceholder": "Enter character name",
+    "colorLabel": "Character Color:",
+    "colorLoading": "🔄 Loading color name...",
+    "colorError": "{{icon}} {{message}}",
+    "colorSuccess": "✨ {{colorName}}",
+    "colorPlaceholder": "Select color to see name",
+    "instructions": {
+      "title": "Instructions:",
+      "enterName": "Enter character name",
+      "selectColor": "Select character color",
+      "selectMap": "Choose a map - 2 types available:",
+      "mapTypes": {
+        "topographic": "🗺️ Topographic maps - real street maps (OpenStreetMap, light and dark variants)",
+        "pixel": "🎮 Pixel art maps - stylized retro game maps (forest, desert, ocean, RPG)"
+      },
+      "useArrows": "Use arrow keys to move around the map"
+    }
+  },
+  "mapSelector": {
+    "title": "🗺️ Choose Map",
+    "categories": {
+      "gaming": "🎮 Gaming",
+      "topographic": "🗺️ Map"
+    },
+    "selectTheme": "Select map theme",
+    "showGrid": "Show grid",
+    "currentMap": "Active map: {{mapName}}",
+    "currentDescription": "{{description}}",
+    "address": {
+      "label": "Search address:",
+      "placeholder": "Enter address, city or place...",
+      "search": "Search",
+      "searching": "🔍 Searching...",
+      "notFound": "❌ Address not found",
+      "found": "📍 Found: {{address}}",
+      "error": "⚠️ Search error"
+    }
+  },
+  "gameMap": {
+    "position": "📍 Position: ({{x}}, {{y}})",
+    "badges": {
+      "pixel": "🎨 Pixel",
+      "topographic": "🗺️ Map"
+    }
+  },
+  "maps": {
+    "osm-standard": {
+      "name": "🗺️ OpenStreetMap",
+      "description": "Real street map"
+    },
+    "carto-light": {
+      "name": "☀️ Light Map", 
+      "description": "Minimalist light map"
+    },
+    "carto-dark": {
+      "name": "🌙 Dark Map",
+      "description": "Elegant dark map"
+    },
+    "retro-overworld": {
+      "name": "🌲 Forest Map",
+      "description": "Forest environments for all seasons"
+    },
+    "pixel-forest": {
+      "name": "🇺🇸 USA Map",
+      "description": "USA map in pixel art style"
+    },
+    "pixel-desert": {
+      "name": "🌊 Pokémon Map",
+      "description": "Pokémon map in retro style"
+    },
+    "pixel-ocean": {
+      "name": "🏜️ Pixel Ocean", 
+      "description": "Ocean map in pixel art style"
+    },
+    "retro-dungeon": {
+      "name": "⚔️ Retro RPG",
+      "description": "RPG map like old games"
+    }
+  },
+  "language": {
+    "switch": "🌐 Language",
+    "english": "English",
+    "polish": "Polski",
+    "switchTo": "Switch to {{language}}"
+  },
+  "errors": {
+    "network": "No internet connection. Check your network connection.",
+    "timeout": "Request timed out. Please try again.",
+    "invalidColor": "Invalid color. Please select a valid hex color.",
+    "apiError": "Server error ({{status}}). Please try again later.",
+    "geocodingError": "Geocoding service error. Please try again.",
+    "invalidAddress": "Invalid address. Please enter a valid address.",
+    "unknown": "An unknown error occurred. Please try again.",
+    "invalidFormat": "Invalid hex color format",
+    "invalidResponse": "Invalid API response",
+    "unexpectedError": "An unexpected error occurred"
+  }
+}
