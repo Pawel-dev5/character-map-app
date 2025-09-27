@@ -8,7 +8,10 @@ export interface Character {
   color: string;
   colorName?: string;
   position: Position;
+  avatarType: AvatarType;
 }
+
+export type AvatarType = "santa" | "8bit" | "car" | "basic";
 
 export interface MapConfig {
   width: number;

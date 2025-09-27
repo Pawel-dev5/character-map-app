@@ -12,6 +12,11 @@
     "colorError": "{{icon}} {{message}}",
     "colorSuccess": "✨ {{colorName}}",
     "colorPlaceholder": "Select color to see name",
+    "avatarLabel": "Character Type:",
+    "avatarRogue": "Basic",
+    "avatarWarrior": "8-bit Character",
+    "avatarMage": "Santa",
+    "avatarArcher": "Car",
     "instructions": {
       "title": "Instructions:",
       "enterName": "Enter character name",

@@ -1,24 +1,29 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useColorName } from "../hooks/useColorName";
+import type { AvatarType } from "../types";
 import "./CharacterForm.css";
 
 interface CharacterFormProps {
   name: string;
   color: string;
   colorName?: string;
+  avatarType: AvatarType;
   onNameChange: (name: string) => void;
   onColorChange: (color: string) => void;
   onColorNameChange: (colorName: string) => void;
+  onAvatarTypeChange: (avatarType: AvatarType) => void;
 }
 
 export const CharacterForm = ({
   name,
   color,
   colorName,
+  avatarType,
   onNameChange,
   onColorChange,
   onColorNameChange,
+  onAvatarTypeChange,
 }: CharacterFormProps) => {
   const { t } = useTranslation();
   const [localName, setLocalName] = useState(name);
@@ -85,6 +90,31 @@ export const CharacterForm = ({
             placeholder={t("characterForm.namePlaceholder")}
             className="form-input"
           />
+        </div>
+
+        <div className="form-field">
+          <label className="form-label" htmlFor="character-avatar-select">
+            {t("characterForm.avatarLabel", "Typ postaci")}
+          </label>
+          <select
+            id="character-avatar-select"
+            value={avatarType}
+            onChange={(e) => onAvatarTypeChange(e?.target?.value as AvatarType)}
+            className="form-select avatar-select"
+          >
+            <option value="basic">
+              {t("characterForm.avatarRogue", "Basic")}
+            </option>
+            <option value="bit8">
+              {t("characterForm.avatarWarrior", "8-bit Character")}
+            </option>
+            <option value="santa">
+              {t("characterForm.avatarMage", "Santa")}
+            </option>
+            <option value="car">
+              {t("characterForm.avatarArcher", "Car")}
+            </option>
+          </select>
         </div>
 
         <div className="form-field">

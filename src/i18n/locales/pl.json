@@ -12,6 +12,11 @@
     "colorError": "{{icon}} {{message}}",
     "colorSuccess": "✨ {{colorName}}",
     "colorPlaceholder": "Wybierz kolor aby zobaczyć nazwę",
+    "avatarLabel": "Typ postaci:",
+    "avatarRogue": "Podstawowy",
+    "avatarWarrior": "Postać 8-bitowa",
+    "avatarMage": "Święty Mikołaj",
+    "avatarArcher": "Samochód",
     "instructions": {
       "title": "Instrukcje:",
       "enterName": "Wprowadź nazwę postaci",
