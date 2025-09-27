@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 // Components
 import { CharacterForm } from "./components/CharacterForm";
 import { GameMap } from "./components/GameMap";
+import { MapSelector } from "./components/MapSelector";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { Instructions } from "./components/Instructions";
 
@@ -18,15 +19,8 @@ import "./App.css";
 function App() {
   const { t } = useTranslation();
 
-  const {
-    character,
-    updateCharacterName,
-    updateCharacterColor,
-    updateCharacterColorName,
-    updateCharacterAvatarType,
-    moveCharacter,
-    resetCharacterPosition,
-  } = useCharacter();
+  const { character, updateCharacter, moveCharacter, resetCharacterPosition } =
+    useCharacter();
 
   const {
     mapConfig,
@@ -58,6 +52,7 @@ function App() {
             coordinates={currentCoordinates}
             onLocationChange={resetCharacterPosition}
           />
+          <Instructions />
         </div>
 
         <div className="left-panel">
@@ -66,10 +61,14 @@ function App() {
             color={character?.color}
             colorName={character?.colorName}
             avatarType={character?.avatarType}
-            onNameChange={updateCharacterName}
-            onColorChange={updateCharacterColor}
-            onColorNameChange={updateCharacterColorName}
-            onAvatarTypeChange={updateCharacterAvatarType}
+            updateCharacter={updateCharacter}
+          />
+
+          <MapSelector
+            currentTheme={mapConfig.theme}
+            availableThemes={availableThemes}
+            onThemeChange={changeTheme}
+            onCoordinatesChange={setCurrentCoordinates}
           />
         </div>
       </main>

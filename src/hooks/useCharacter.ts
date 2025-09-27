@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
-import type { Character, Position, Direction, AvatarType } from "../types";
+import { useState, useCallback, useEffect, useRef } from "react";
+import type { Character, Position, Direction } from "../types";
 import { useColorName } from "./useColorName";
 
 const DEFAULT_COLOR = "#059669";
@@ -14,22 +14,14 @@ export const useCharacter = () => {
   });
 
   const { fetchColorName } = useColorName();
+  const initializedDefaultColor = useRef(false);
 
-  const updateCharacterName = useCallback((name: string) => {
-    setCharacter((prev) => ({ ...prev, name }));
-  }, []);
-
-  const updateCharacterColor = useCallback((color: string) => {
-    setCharacter((prev) => ({ ...prev, color }));
-  }, []);
-
-  const updateCharacterColorName = useCallback((colorName: string) => {
-    setCharacter((prev) => ({ ...prev, colorName }));
-  }, []);
-
-  const updateCharacterAvatarType = useCallback((avatarType: AvatarType) => {
-    setCharacter((prev) => ({ ...prev, avatarType }));
-  }, []);
+  const updateCharacter = useCallback(
+    <K extends keyof Character>(key: K, value: Character[K]) => {
+      setCharacter((prev) => ({ ...prev, [key]: value }));
+    },
+    []
+  );
 
   const moveCharacter = useCallback((direction: Direction) => {
     setCharacter((prev) => {
@@ -63,23 +55,29 @@ export const useCharacter = () => {
 
   useEffect(() => {
     const initializeDefaultColorName = async () => {
-      if (character?.color === DEFAULT_COLOR && !character?.colorName) {
+      if (
+        character?.color === DEFAULT_COLOR &&
+        !character?.colorName &&
+        !initializedDefaultColor.current
+      ) {
+        initializedDefaultColor.current = true;
         const colorName = await fetchColorName(DEFAULT_COLOR);
         if (colorName) {
           setCharacter((prev) => ({ ...prev, colorName }));
         }
       }
+
+      if (character?.color !== DEFAULT_COLOR) {
+        initializedDefaultColor.current = false;
+      }
     };
 
     initializeDefaultColorName();
-  }, [character?.color, character?.colorName, fetchColorName]);
+  }, []);
 
   return {
     character,
-    updateCharacterName,
-    updateCharacterColor,
-    updateCharacterColorName,
-    updateCharacterAvatarType,
+    updateCharacter,
     moveCharacter,
     resetCharacterPosition,
     defaultColor: DEFAULT_COLOR,

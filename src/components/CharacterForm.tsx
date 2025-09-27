@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useColorName } from "../hooks/useColorName";
-import type { AvatarType } from "../types";
+import type { AvatarType, Character } from "../types";
 import "./CharacterForm.css";
 
 interface CharacterFormProps {
@@ -9,10 +9,10 @@ interface CharacterFormProps {
   color: string;
   colorName?: string;
   avatarType: AvatarType;
-  onNameChange: (name: string) => void;
-  onColorChange: (color: string) => void;
-  onColorNameChange: (colorName: string) => void;
-  onAvatarTypeChange: (avatarType: AvatarType) => void;
+  updateCharacter: (
+    key: keyof Character,
+    value: Character[keyof Character]
+  ) => void;
 }
 
 export const CharacterForm = ({
@@ -20,10 +20,7 @@ export const CharacterForm = ({
   color,
   colorName,
   avatarType,
-  onNameChange,
-  onColorChange,
-  onColorNameChange,
-  onAvatarTypeChange,
+  updateCharacter,
 }: CharacterFormProps) => {
   const { t } = useTranslation();
   const [localName, setLocalName] = useState(name);
@@ -40,19 +37,19 @@ export const CharacterForm = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onNameChange(localName);
+      updateCharacter("name", localName);
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [localName, onNameChange]);
+  }, [localName, updateCharacter]);
 
   const handleColorChange = async (newColor: string) => {
-    onColorChange(newColor);
+    updateCharacter("color", newColor);
     clearError();
 
     const colorNameResult = await fetchColorName(newColor);
     if (colorNameResult) {
-      onColorNameChange(colorNameResult);
+      updateCharacter("colorName", colorNameResult);
     }
   };
 
@@ -99,7 +96,9 @@ export const CharacterForm = ({
           <select
             id="character-avatar-select"
             value={avatarType}
-            onChange={(e) => onAvatarTypeChange(e?.target?.value as AvatarType)}
+            onChange={(e) =>
+              updateCharacter("avatarType", e?.target?.value as AvatarType)
+            }
             className="form-select avatar-select"
           >
             <option value="basic">
