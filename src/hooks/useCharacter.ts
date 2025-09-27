@@ -1,16 +1,27 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import type { Character, Position, Direction } from "../types";
+import type { Character, Position, Direction, AvatarType } from "../types";
 import { useColorName } from "./useColorName";
+import { characterStorage } from "../utils/localStorage";
 
 const DEFAULT_COLOR = "#059669";
 const DEFAULT_NAME = "Hero";
 
 export const useCharacter = () => {
-  const [character, setCharacter] = useState<Character>({
-    name: DEFAULT_NAME,
-    color: DEFAULT_COLOR,
-    position: { x: 10, y: 7 },
-    avatarType: "basic",
+  // Initialize state with values from localStorage
+  const [character, setCharacter] = useState<Character>(() => {
+    const savedColor = characterStorage?.getColor(DEFAULT_COLOR);
+    const savedColorName = characterStorage?.getColorName();
+    const savedName = characterStorage?.getName(DEFAULT_NAME);
+    const savedAvatarType = characterStorage?.getAvatarType("basic");
+    const savedPosition = characterStorage?.getPosition({ x: 10, y: 7 });
+
+    return {
+      name: savedName,
+      color: savedColor,
+      colorName: savedColorName,
+      position: savedPosition,
+      avatarType: savedAvatarType as AvatarType,
+    };
   });
 
   const { fetchColorName } = useColorName();
@@ -46,12 +57,37 @@ export const useCharacter = () => {
     });
   }, []);
 
-  const resetCharacterPosition = useCallback(() => {
-    setCharacter((prev) => ({
-      ...prev,
-      position: { x: 10, y: 7 },
-    }));
+  const resetCharacterPosition = useCallback((shouldReset = true) => {
+    if (shouldReset) {
+      setCharacter((prev) => ({
+        ...prev,
+        position: { x: 10, y: 7 },
+      }));
+    }
   }, []);
+
+  // Effect to persist character data to localStorage
+  useEffect(() => {
+    if (character?.name) {
+      characterStorage.setName(character.name);
+    }
+
+    if (character?.color) {
+      characterStorage.setColor(character.color);
+    }
+
+    if (character?.colorName) {
+      characterStorage.setColorName(character.colorName);
+    }
+
+    if (character?.avatarType) {
+      characterStorage.setAvatarType(character.avatarType);
+    }
+
+    if (character?.position) {
+      characterStorage.setPosition(character.position);
+    }
+  }, [character]);
 
   useEffect(() => {
     const initializeDefaultColorName = async () => {

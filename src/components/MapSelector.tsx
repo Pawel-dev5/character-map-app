@@ -74,49 +74,49 @@ export const MapSelector = ({
   }, [debouncedAddressInput, selectedCategory]);
 
   const handleSuggestionSelect = (suggestion: AddressSuggestion) => {
-    setAddressInput(suggestion.displayName);
+    setAddressInput(suggestion?.displayName);
     setShowSuggestions(false);
     setSelectedSuggestionIndex(-1);
 
     const coordinates: GeoCoordinates = {
-      latitude: suggestion.coordinates.lat,
-      longitude: suggestion.coordinates.lon,
-      address: suggestion.displayName,
+      latitude: suggestion?.coordinates?.lat,
+      longitude: suggestion?.coordinates?.lon,
+      address: suggestion?.displayName || "",
     };
 
     setSearchResult({
       status: "found",
-      message: suggestion.displayName,
+      message: suggestion?.displayName,
       coordinates,
     });
     onCoordinatesChange?.(coordinates);
   };
 
   const handleAddressSearch = async () => {
-    if (!addressInput.trim()) return;
+    if (!addressInput?.trim()) return;
 
     setIsSearching(true);
     setSearchResult({ status: "none" });
 
     const result = await geocodeAddress(addressInput);
 
-    if (result.success && result.data) {
+    if (result?.success && result?.data) {
       setSearchResult({
         status: "found",
-        message: result.data.address,
-        coordinates: result.data,
+        message: result?.data?.address,
+        coordinates: result?.data,
       });
-      onCoordinatesChange?.(result.data);
-    } else if (result.errorType === "INVALID_ADDRESS") {
+      onCoordinatesChange?.(result?.data);
+    } else if (result?.errorType === "INVALID_ADDRESS") {
       setSearchResult({
         status: "not_found",
-        message: result.error?.message,
+        message: result?.error?.message,
       });
       onCoordinatesChange?.(null);
     } else {
       setSearchResult({
         status: "error",
-        message: result.error?.message,
+        message: result?.error?.message,
       });
       onCoordinatesChange?.(null);
     }
@@ -125,33 +125,33 @@ export const MapSelector = ({
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (!showSuggestions) {
-      if (e.key === "Enter") {
+      if (e?.key === "Enter") {
         handleAddressSearch();
       }
       return;
     }
 
-    switch (e.key) {
+    switch (e?.key) {
       case "ArrowDown":
-        e.preventDefault();
+        e?.preventDefault();
         setSelectedSuggestionIndex((prev) =>
-          prev < suggestions.length - 1 ? prev + 1 : prev
+          prev < suggestions?.length - 1 ? prev + 1 : prev
         );
         break;
       case "ArrowUp":
-        e.preventDefault();
+        e?.preventDefault();
         setSelectedSuggestionIndex((prev) => (prev > 0 ? prev - 1 : -1));
         break;
       case "Enter":
-        e.preventDefault();
+        e?.preventDefault();
         if (selectedSuggestionIndex >= 0) {
-          handleSuggestionSelect(suggestions[selectedSuggestionIndex]);
+          handleSuggestionSelect(suggestions?.[selectedSuggestionIndex]);
         } else {
           handleAddressSearch();
         }
         break;
       case "Escape":
-        e.preventDefault();
+        e?.preventDefault();
         setShowSuggestions(false);
         setSelectedSuggestionIndex(-1);
         break;
@@ -159,7 +159,7 @@ export const MapSelector = ({
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddressInput(e.target.value);
+    setAddressInput(e?.target?.value);
     setSearchResult({ status: "none" });
   };
 
@@ -172,7 +172,7 @@ export const MapSelector = ({
   };
 
   const handleInputFocus = () => {
-    if (suggestions.length > 0) {
+    if (suggestions?.length > 0) {
       setShowSuggestions(true);
     }
   };
@@ -228,11 +228,11 @@ export const MapSelector = ({
               {isFetchingSuggestions && (
                 <div className="suggestions-loading">🔍</div>
               )}
-              {showSuggestions && suggestions.length > 0 && (
+              {showSuggestions && suggestions?.length > 0 && (
                 <div className="suggestions-dropdown">
-                  {suggestions.map((suggestion, index) => (
+                  {suggestions?.map((suggestion, index) => (
                     <div
-                      key={suggestion.id}
+                      key={suggestion?.id}
                       ref={(el) => {
                         if (el) suggestionRefs.current[index] = el;
                       }}
@@ -242,14 +242,14 @@ export const MapSelector = ({
                       onClick={() => handleSuggestionSelect(suggestion)}
                     >
                       <div className="suggestion-name">
-                        {suggestion.displayName.split(",")[0]}
+                        {suggestion?.displayName?.split(",")?.[0]}
                       </div>
                       <div className="suggestion-details">
-                        {suggestion.displayName
-                          .split(",")
-                          .slice(1)
-                          .join(",")
-                          .trim()}
+                        {suggestion?.displayName
+                          ?.split(",")
+                          ?.slice(1)
+                          ?.join(",")
+                          ?.trim()}
                       </div>
                     </div>
                   ))}
@@ -258,7 +258,7 @@ export const MapSelector = ({
             </div>
             <button
               onClick={handleAddressSearch}
-              disabled={isSearching || !addressInput.trim()}
+              disabled={isSearching || !addressInput?.trim()}
               className="address-search-button"
             >
               {isSearching
@@ -266,19 +266,19 @@ export const MapSelector = ({
                 : t("mapSelector.address.search")}
             </button>
           </div>
-          {searchResult.status !== "none" && (
-            <div className={`search-result ${searchResult.status}`}>
-              {searchResult.status === "found" && (
+          {searchResult?.status !== "none" && (
+            <div className={`search-result ${searchResult?.status}`}>
+              {searchResult?.status === "found" && (
                 <span>
                   {t("mapSelector.address.found", {
-                    address: searchResult.message,
+                    address: searchResult?.message,
                   })}
                 </span>
               )}
-              {searchResult.status === "not_found" && (
+              {searchResult?.status === "not_found" && (
                 <span>{t("mapSelector.address.notFound")}</span>
               )}
-              {searchResult.status === "error" && (
+              {searchResult?.status === "error" && (
                 <span>{t("mapSelector.address.error")}</span>
               )}
             </div>
@@ -288,38 +288,38 @@ export const MapSelector = ({
 
       {/* Theme Grid */}
       <div className="theme-grid">
-        {filteredThemes.map((theme) => (
+        {filteredThemes?.map((theme) => (
           <button
-            key={theme.id}
+            key={theme?.id}
             className={`theme-card ${
-              currentTheme.id === theme.id ? "active" : ""
+              currentTheme?.id === theme?.id ? "active" : ""
             }`}
-            onClick={() => onThemeChange(theme.id)}
-            aria-pressed={currentTheme.id === theme.id}
-            aria-label={`${t("mapSelector.selectTheme")}: ${t(theme.name)}`}
+            onClick={() => onThemeChange(theme?.id)}
+            aria-pressed={currentTheme?.id === theme?.id}
+            aria-label={`${t("mapSelector.selectTheme")}: ${t(theme?.name)}`}
           >
             <div
               className="theme-preview"
               style={{
                 backgroundColor: "#e5e7eb",
-                borderColor: theme.borderColor || "#d1d5db",
-                backgroundImage: theme.backgroundImage
-                  ? `url("${theme.backgroundImage}")`
+                borderColor: theme?.borderColor || "#d1d5db",
+                backgroundImage: theme?.backgroundImage
+                  ? `url("${theme?.backgroundImage}")`
                   : undefined,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              {!theme.backgroundImage &&
-                (theme.type === "topographic" ? (
+              {!theme?.backgroundImage &&
+                (theme?.type === "topographic" ? (
                   <div className="topographic-indicator">🗺️</div>
                 ) : (
                   <div className="pixel-indicator">▓</div>
                 ))}
             </div>
             <div className="theme-info">
-              <div className="theme-name">{t(theme.name)}</div>
-              <div className="theme-description">{t(theme.description)}</div>
+              <div className="theme-name">{t(theme?.name)}</div>
+              <div className="theme-description">{t(theme?.description)}</div>
             </div>
           </button>
         ))}

@@ -23,9 +23,8 @@ export const GameMap = ({
   const mapRef = useRef<HTMLDivElement>(null);
   const leafletMapRef = useRef<L.Map | null>(null);
 
-  // Initialize Leaflet map ONLY for topographic maps
   useEffect(() => {
-    if (theme.type !== "topographic" || !mapRef.current) return;
+    if (theme?.type !== "topographic" || !mapRef.current) return;
 
     // Clean up existing map
     if (leafletMapRef.current) {
@@ -45,14 +44,13 @@ export const GameMap = ({
       scrollWheelZoom: true,
     }).setView(
       coordinates
-        ? [coordinates.latitude, coordinates.longitude]
+        ? [coordinates?.latitude, coordinates?.longitude]
         : [defaultLat, defaultLng],
       coordinates ? 15 : 6
     );
 
-    // Get tile layer URL based on theme
     const getTileLayerUrl = () => {
-      switch (theme.id) {
+      switch (theme?.id) {
         case "osm-standard":
           return "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
         case "carto-light":
@@ -65,7 +63,7 @@ export const GameMap = ({
     };
 
     const getAttribution = () => {
-      switch (theme.id) {
+      switch (theme?.id) {
         case "osm-standard":
           return '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
         case "carto-light":
@@ -94,11 +92,11 @@ export const GameMap = ({
 
   // Update map center when coordinates change
   useEffect(() => {
-    if (theme.type !== "topographic" || !leafletMapRef.current || !coordinates)
+    if (theme?.type !== "topographic" || !leafletMapRef.current || !coordinates)
       return;
 
     leafletMapRef.current.setView(
-      [coordinates.latitude, coordinates.longitude],
+      [coordinates?.latitude, coordinates?.longitude],
       15,
       { animate: true }
     );
@@ -109,7 +107,7 @@ export const GameMap = ({
 
   // Auto-pan map when character approaches edge
   useEffect(() => {
-    if (theme.type !== "topographic" || !leafletMapRef.current) return;
+    if (theme?.type !== "topographic" || !leafletMapRef.current) return;
 
     const { x, y } = character.position;
     const edgeThreshold = 0; // Only at the very edge!
@@ -162,45 +160,41 @@ export const GameMap = ({
         Math.pow(2, zoom)
     );
 
-    if (theme.id === "osm-standard") {
+    if (theme?.id === "osm-standard") {
       return `https://tile.openstreetmap.org/${zoom}/${x}/${y}.png`;
-    } else if (theme.id === "carto-light") {
+    } else if (theme?.id === "carto-light") {
       return `https://a.basemaps.cartocdn.com/light_all/${zoom}/${x}/${y}.png`;
-    } else if (theme.id === "carto-dark") {
+    } else if (theme?.id === "carto-dark") {
       return `https://a.basemaps.cartocdn.com/dark_all/${zoom}/${x}/${y}.png`;
     }
 
-    return theme.backgroundImage;
+    return theme?.backgroundImage;
   };
 
   const cssVars = {
     "--map-width": width,
     "--map-height": height,
     "--tile-size": `${tileSize}px`,
-    "--map-bg-color": theme.backgroundColor || "#f0f8ff",
+    "--map-bg-color": theme?.backgroundColor || "#f0f8ff",
   } as CSSProperties;
 
   // Determine background image URL based on coordinates (for topographic maps) or default
   const backgroundImageUrl =
-    theme.type === "topographic" && coordinates
-      ? getTileUrl(coordinates.latitude, coordinates.longitude)
-      : theme.backgroundImage;
+    theme?.type === "topographic" && coordinates
+      ? getTileUrl(coordinates?.latitude, coordinates?.longitude)
+      : theme?.backgroundImage;
 
   const mapStyle: CSSProperties = {
     ...cssVars,
     backgroundImage: backgroundImageUrl
       ? `url("${backgroundImageUrl}")`
       : undefined,
-    backgroundSize: backgroundImageUrl
-      ? theme.type === "topographic"
-        ? "cover"
-        : "contain"
-      : undefined,
-    backgroundColor: theme.backgroundColor || "#f0f8ff",
+    backgroundSize: "cover",
+    backgroundColor: theme?.backgroundColor || "#f0f8ff",
     border: "none",
   };
 
-  if (theme.type === "topographic") {
+  if (theme?.type === "topographic") {
     return (
       <div className="game-map-container">
         <div

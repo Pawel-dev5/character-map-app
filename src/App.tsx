@@ -15,6 +15,7 @@ import { useMap } from "./hooks/useMap";
 // Styles
 import "./i18n";
 import "./App.css";
+import { getThemeById } from "./data/mapThemes";
 
 function App() {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ function App() {
     mapConfig,
     availableThemes,
     currentCoordinates,
-    changeTheme,
+    updateMapConfig,
     setCurrentCoordinates,
   } = useMap();
 
@@ -50,7 +51,12 @@ function App() {
             character={character}
             mapConfig={mapConfig}
             coordinates={currentCoordinates}
-            onLocationChange={resetCharacterPosition}
+            onLocationChange={() => {
+              // Reset position only for topographic maps when location changes
+              // Keep position for gaming maps (pixel type)
+              const shouldReset = mapConfig.theme.type === "topographic";
+              resetCharacterPosition(shouldReset);
+            }}
           />
           <Instructions />
         </div>
@@ -67,7 +73,9 @@ function App() {
           <MapSelector
             currentTheme={mapConfig.theme}
             availableThemes={availableThemes}
-            onThemeChange={changeTheme}
+            onThemeChange={(themeId) =>
+              updateMapConfig("theme", getThemeById(themeId))
+            }
             onCoordinatesChange={setCurrentCoordinates}
           />
         </div>
