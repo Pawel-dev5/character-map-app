@@ -1,0 +1,112 @@
+.instructions-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.instructions-header {
+  margin-bottom: 15px;
+}
+
+.instructions-header h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instructions-header h3::before {
+  content: "📋";
+  font-size: 1.1rem;
+}
+
+.instructions-content {
+  color: #555;
+}
+
+.instructions-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions-content li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  padding-left: 25px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.instructions-content li:last-child {
+  border-bottom: none;
+}
+
+.instructions-content li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.instructions-content li:nth-child(1)::before {
+  content: "✏️";
+}
+
+.instructions-content li:nth-child(2)::before {
+  content: "🎨";
+}
+
+.instructions-content li:nth-child(3)::before {
+  content: "🗺️";
+}
+
+.instructions-content li:nth-child(4)::before {
+  content: "⌨️";
+}
+
+/* Nested map types styling */
+.instructions-content .map-types {
+  margin-top: 8px;
+  margin-left: 0;
+  max-width: 100%;
+}
+
+.instructions-content .map-types li {
+  padding: 4px 0;
+  padding-left: 20px;
+  border-bottom: none;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.instructions-content .map-types li::before {
+  content: "•";
+  color: #999;
+  font-size: 1.2em;
+  left: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .instructions-container {
+    margin-top: 15px;
+    padding: 15px;
+  }
+  
+  .instructions-header h3 {
+    font-size: 1.1rem;
+  }
+}

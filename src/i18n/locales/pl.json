@@ -1,0 +1,111 @@
+{
+  "app": {
+    "title": "Postać na Mapie",
+    "subtitle": "Aplikacja React z TypeScript - sterowanie strzałkami"
+  },
+  "characterForm": {
+    "title": "Parametry postaci",
+    "nameLabel": "Nazwa postaci:",
+    "namePlaceholder": "Wprowadź nazwę postaci",
+    "colorLabel": "Kolor postaci:",
+    "colorLoading": "🔄 Ładowanie nazwy koloru...",
+    "colorError": "{{icon}} {{message}}",
+    "colorSuccess": "✨ {{colorName}}",
+    "colorPlaceholder": "Wybierz kolor aby zobaczyć nazwę",
+    "avatarLabel": "Typ postaci:",
+    "avatarRogue": "Podstawowy",
+    "avatarWarrior": "Postać 8-bitowa",
+    "avatarMage": "Święty Mikołaj",
+    "avatarArcher": "Samochód",
+    "instructions": {
+      "title": "Instrukcje:",
+      "enterName": "Wprowadź nazwę postaci",
+      "selectColor": "Wybierz kolor postaci",
+      "selectMap": "Wybierz mapę - dostępne są 2 rodzaje:",
+      "mapTypes": {
+        "topographic": "🗺️ Mapy topograficzne - prawdziwe mapy z ulicami (OpenStreetMap, jasne i ciemne warianty)",
+        "pixel": "🎮 Mapy pixel art - stylizowane mapy w stylu retro gier (las, pustynia, ocean, RPG)"
+      },
+      "useArrows": "Użyj strzałek na klawiaturze do poruszania się po mapie"
+    }
+  },
+  "mapSelector": {
+    "title": "🗺️ Wybierz Mapę",
+    "categories": {
+      "gaming": "🎮 Gaming",
+      "topographic": "🗺️ Mapa"
+    },
+    "selectTheme": "Wybierz motyw mapy",
+    "showGrid": "Pokaż siatkę",
+    "currentMap": "Aktywna mapa: {{mapName}}",
+    "currentDescription": "{{description}}",
+    "address": {
+      "label": "Wyszukaj adres:",
+      "placeholder": "Wprowadź adres, miasto lub miejsce...",
+      "search": "Szukaj",
+      "searching": "🔍 Wyszukiwanie...",
+      "notFound": "❌ Nie znaleziono adresu",
+      "found": "📍 Znaleziono: {{address}}",
+      "error": "⚠️ Błąd wyszukiwania"
+    }
+  },
+  "gameMap": {
+    "position": "📍 Pozycja: ({{x}}, {{y}})",
+    "badges": {
+      "pixel": "🎨 Pixel",
+      "topographic": "🗺️ Mapa"
+    }
+  },
+  "maps": {
+    "osm-standard": {
+      "name": "🗺️ Mapa OpenStreetMap",
+      "description": "Prawdziwa mapa ulic"
+    },
+    "carto-light": {
+      "name": "☀️ Jasna Mapa",
+      "description": "Minimalistyczna jasna mapa"
+    },
+    "carto-dark": {
+      "name": "🌙 Ciemna Mapa", 
+      "description": "Elegancka ciemna mapa"
+    },
+    "retro-overworld": {
+      "name": "🇺🇸 Mapa Lasu",
+      "description": "Leśne środowiska dla wszystkich pór roku"
+    },
+    "pixel-forest": {
+      "name": "🌲 Mapa USA",
+      "description": "Mapa USA w stylu pixel art"
+    },
+    "pixel-desert": {
+      "name": "🌊 Pokémon",
+      "description": "Mapa Pokémon w stylu retro"
+    },
+    "pixel-ocean": {
+      "name": "🏜️ Ocean Pixel",
+      "description": "Mapa oceanu w stylu pixel art"
+    },
+    "retro-dungeon": {
+      "name": "⚔️ Retro RPG",
+      "description": "Mapa RPG jak ze starych gier"
+    }
+  },
+  "language": {
+    "switch": "🌐 Język",
+    "english": "Angielski",
+    "polish": "Polski",
+    "switchTo": "Przełącz na {{language}}"
+  },
+  "errors": {
+    "network": "Brak połączenia z internetem. Sprawdź połączenie sieciowe.",
+    "timeout": "Żądanie przekroczyło limit czasu. Spróbuj ponownie.",
+    "invalidColor": "Nieprawidłowy kolor. Wybierz prawidłowy kolor hex.",
+    "apiError": "Błąd serwera ({{status}}). Spróbuj ponownie za chwilę.",
+    "geocodingError": "Błąd usługi geokodowania. Spróbuj ponownie.",
+    "invalidAddress": "Nieprawidłowy adres. Wprowadź poprawny adres.",
+    "unknown": "Wystąpił nieznany błąd. Spróbuj ponownie.",
+    "invalidFormat": "Nieprawidłowy format koloru hex",
+    "invalidResponse": "Nieprawidłowa odpowiedź z API",
+    "unexpectedError": "Wystąpił nieoczekiwany błąd"
+  }
+}

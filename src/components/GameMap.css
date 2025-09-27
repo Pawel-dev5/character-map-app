@@ -1,0 +1,183 @@
+.game-map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; 
+}
+
+.game-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.game-map-header h3 {
+  margin: 0;
+  color: #374151;
+  font-size: 1.3rem;
+}
+
+.map-type-badge {
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.game-map {
+  position: relative;
+  width: calc(var(--map-width, 20) * var(--tile-size, 32px));
+  height: calc(var(--map-height, 15) * var(--tile-size, 32px));
+  border: none;
+  background-color: var(--map-bg-color, #f0f8ff);
+  border-radius: 12px;
+  overflow: visible;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.game-map:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.game-map-info {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.position-info {
+  color: #374151;
+  font-size: 0.9rem;
+  font-family: monospace;
+  background-color: #f9fafb;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  margin: 0 0 8px 0;
+  display: inline-block;
+}
+
+.map-description {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0;
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+.leaflet-map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  min-height: 400px;
+  min-width: 600px;
+}
+
+.leaflet-map-container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.character-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; 
+  z-index: 1000; 
+}
+
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .leaflet-map-container {
+    min-width: 100%;
+    min-height: 300px;
+    max-width: 100%;
+  }
+  
+  .game-map {
+    width: 85vw;
+    max-width: 380px;
+    height: auto;
+    aspect-ratio: 4/3;
+    background-size: cover;
+  }
+  
+  .game-map-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .map-description {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaflet-map-container {
+    min-height: 250px;
+  }
+  
+  .game-map {
+    min-height: 200px;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .app-header p {
+    font-size: 1rem;
+  }
+}
+
+/* Leaflet Control Styling */
+.leaflet-container {
+  font-family: inherit;
+  background: #f0f8ff;
+}
+
+.leaflet-control-zoom {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.leaflet-control-zoom a {
+  border-radius: 8px;
+  border: none;
+  background: #ffffff;
+  color: #374151;
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-popup-content {
+  margin: 12px 16px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  font-size: 10px;
+}
+
