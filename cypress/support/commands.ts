@@ -44,7 +44,7 @@ declare global {
 }
 
 Cypress.Commands.add('setCharacterName', (name: string) => {
-	cy.get('input[type="text"]').first().clear().type(name);
+	cy.get('[data-testid="character-name-input"]').clear().type(name);
 });
 
 Cypress.Commands.add('setCharacterColor', (color: string) => {
@@ -59,8 +59,7 @@ Cypress.Commands.add('moveCharacter', (direction: 'up' | 'down' | 'left' | 'righ
 });
 
 Cypress.Commands.add('switchLanguage', (language: 'en' | 'pl') => {
-	const buttonText = language === 'en' ? 'EN' : 'PL';
-	cy.contains('button', buttonText).click();
+	cy.get(`[data-testid="language-${language}"]`).click();
 });
 
 Cypress.Commands.add('selectMapTheme', (themeName: string) => {

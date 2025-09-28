@@ -15,8 +15,8 @@ describe('Map Functionality', () => {
 	});
 
 	it('should display map container and character', () => {
-		cy.get('[data-testid="game-map"], [class*="game-map"], [class*="map-container"]').should('be.visible');
-		cy.get('[data-testid="character"], [class*="character"]').should('be.visible');
+		cy.get('[data-testid="game-map"]').should('be.visible');
+		cy.get('[data-testid="character"]').should('be.visible');
 		cy.get('body').then(($body) => {
 			if ($body.find('.leaflet-container').length > 0) {
 				cy.get('.leaflet-container').should('be.visible');
@@ -29,17 +29,15 @@ describe('Map Functionality', () => {
 	});
 
 	it('should handle map theme switching', () => {
-		cy.get('[data-testid="map-selector"], [class*="map-selector"]').then(($selector) => {
-			if ($selector.length > 0) {
-				cy.get('button[class*="map"], button[class*="theme"]').then(($buttons) => {
-					if ($buttons.length > 1) {
-						Array.from({ length: Math.min($buttons.length, 3) }, (_, i) => {
-							cy.wrap($buttons[i]).click();
-							cy.wait(500);
-							cy.get('[data-testid="game-map"], [class*="game-map"]').should('be.visible');
-							cy.get('[data-testid="character"], [class*="character"]').should('be.visible');
-						});
-					}
+		cy.get('[data-testid="map-selector"]').should('exist');
+		cy.get('body').then(($body) => {
+			const themeButtons = $body.find('[data-testid^="map-theme-"]');
+			if (themeButtons.length > 1) {
+				Array.from({ length: Math.min(themeButtons.length, 3) }, (_, i) => {
+					cy.get('[data-testid^="map-theme-"]').eq(i).click();
+					cy.wait(500);
+					cy.get('[data-testid="game-map"]').should('be.visible');
+					cy.get('[data-testid="character"]').should('be.visible');
 				});
 			}
 		});
@@ -63,7 +61,7 @@ describe('Map Functionality', () => {
 	});
 
 	it('should update character position visually on movement', () => {
-		cy.get('[data-testid="character"], [class*="character"]')
+		cy.get('[data-testid="character"]')
 			.should('be.visible')
 			.then(($char) => {
 				const initialRect = $char[0].getBoundingClientRect();
@@ -112,10 +110,10 @@ describe('Map Functionality', () => {
 	it('should maintain map functionality after window resize', () => {
 		cy.viewport(1200, 800);
 		cy.wait(500);
-		cy.get('[data-testid="game-map"], [class*="game-map"]').should('be.visible');
-		cy.get('[data-testid="character"], [class*="character"]').should('be.visible');
+		cy.get('[data-testid="game-map"]').should('be.visible');
+		cy.get('[data-testid="character"]').should('be.visible');
 		cy.moveCharacter('right', 2);
-		cy.get('[data-testid="character"], [class*="character"]').should('be.visible');
+		cy.get('[data-testid="character"]').should('be.visible');
 		cy.viewport(1280, 720);
 	});
 

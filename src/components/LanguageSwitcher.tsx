@@ -15,6 +15,7 @@ export const LanguageSwitcher = () => {
 			{/* <span className="language-label">{t("language.switch")}</span> */}
 			<div className="language-buttons">
 				<button
+					data-testid="language-en"
 					className={`language-button ${currentLanguage === 'en' ? 'active' : ''}`}
 					onClick={() => changeLanguage('en')}
 					aria-label={t('language.switchTo', { language: 'English' })}
@@ -26,6 +27,7 @@ export const LanguageSwitcher = () => {
 					EN
 				</button>
 				<button
+					data-testid="language-pl"
 					className={`language-button ${currentLanguage === 'pl' ? 'active' : ''}`}
 					onClick={() => changeLanguage('pl')}
 					aria-label={t('language.switchTo', { language: 'Polski' })}

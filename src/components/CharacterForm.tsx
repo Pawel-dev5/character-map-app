@@ -64,6 +64,7 @@ export const CharacterForm = ({ name, color, colorName, avatarType, updateCharac
 					</label>
 					<input
 						id="character-name-input"
+						data-testid="character-name-input"
 						type="text"
 						value={localName}
 						onChange={(e) => setLocalName(e?.target?.value)}

@@ -171,7 +171,7 @@ export const GameMap = ({ character, mapConfig, coordinates }: GameMapProps) => 
 
 	if (theme?.type === 'topographic') {
 		return (
-			<div className="game-map-container">
+			<div className="game-map-container" data-testid="game-map">
 				<div
 					ref={mapRef}
 					className="leaflet-map-container"
@@ -188,7 +188,7 @@ export const GameMap = ({ character, mapConfig, coordinates }: GameMapProps) => 
 	}
 
 	return (
-		<div className="game-map-container">
+		<div className="game-map-container" data-testid="game-map">
 			<div className="game-map" style={mapStyle}>
 				<Character character={character} mapConfig={{ width, height, tileSize }} />
 			</div>
