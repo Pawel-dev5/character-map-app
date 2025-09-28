@@ -54,15 +54,6 @@ export const useCharacter = () => {
 		});
 	}, []);
 
-	const resetCharacterPosition = useCallback((shouldReset = true) => {
-		if (shouldReset) {
-			setCharacter((prev) => ({
-				...prev,
-				position: { x: 10, y: 7 },
-			}));
-		}
-	}, []);
-
 	// Effect to persist character data to localStorage
 	useEffect(() => {
 		if (character?.name) {
@@ -108,7 +99,6 @@ export const useCharacter = () => {
 		character,
 		updateCharacter,
 		moveCharacter,
-		resetCharacterPosition,
 		defaultColor: DEFAULT_COLOR,
 	};
 };
