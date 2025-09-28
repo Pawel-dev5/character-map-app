@@ -23,7 +23,7 @@ import { getThemeById } from './data/mapThemes';
 const App = () => {
 	const { t } = useTranslation();
 
-	const { character, updateCharacter, moveCharacter, resetCharacterPosition } = useCharacter();
+	const { character, updateCharacter, moveCharacter } = useCharacter();
 
 	const { mapConfig, availableThemes, currentCoordinates, updateMapConfig, setCurrentCoordinates } = useMap();
 
@@ -44,17 +44,7 @@ const App = () => {
 			<main className="app-main">
 				<div className="right-panel">
 					<Suspense fallback={<div className="loading-spinner">{t('common.loading')}</div>}>
-						<GameMap
-							character={character}
-							mapConfig={mapConfig}
-							coordinates={currentCoordinates}
-							onLocationChange={() => {
-								// Reset position only for topographic maps when location changes
-								// Keep position for gaming maps (pixel type)
-								const shouldReset = mapConfig.theme.type === 'topographic';
-								resetCharacterPosition(shouldReset);
-							}}
-						/>
+						<GameMap character={character} mapConfig={mapConfig} coordinates={currentCoordinates} />
 					</Suspense>
 					<Instructions />
 				</div>

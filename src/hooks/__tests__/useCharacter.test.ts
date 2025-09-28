@@ -160,40 +160,4 @@ describe('useCharacter', () => {
 			expect(result.current.character?.position.y).toBe(14);
 		});
 	});
-
-	describe('resetCharacterPosition', () => {
-		it('should reset position when shouldReset is true', () => {
-			const { result } = renderHook(() => useCharacter());
-
-			act(() => {
-				result.current.moveCharacter('up');
-				result.current.moveCharacter('left');
-			});
-
-			expect(result.current.character?.position).toEqual({ x: 9, y: 6 });
-
-			act(() => {
-				result.current.resetCharacterPosition(true);
-			});
-
-			expect(result.current.character?.position).toEqual({ x: 10, y: 7 });
-		});
-
-		it('should not reset position when shouldReset is false', () => {
-			const { result } = renderHook(() => useCharacter());
-
-			act(() => {
-				result.current.moveCharacter('up');
-				result.current.moveCharacter('left');
-			});
-
-			const currentPosition = { ...result.current.character!.position };
-
-			act(() => {
-				result.current.resetCharacterPosition(false);
-			});
-
-			expect(result.current.character?.position).toEqual(currentPosition);
-		});
-	});
 });

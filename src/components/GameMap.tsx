@@ -10,10 +10,9 @@ interface GameMapProps {
 	character: CharacterType;
 	mapConfig: MapConfig;
 	coordinates?: GeoCoordinates | null;
-	onLocationChange?: () => void;
 }
 
-export const GameMap = ({ character, mapConfig, coordinates, onLocationChange }: GameMapProps) => {
+export const GameMap = ({ character, mapConfig, coordinates }: GameMapProps) => {
 	const { width, height, tileSize, theme } = mapConfig;
 	const mapRef = useRef<HTMLDivElement>(null);
 	const leafletMapRef = useRef<L.Map | null>(null);
@@ -83,15 +82,11 @@ export const GameMap = ({ character, mapConfig, coordinates, onLocationChange }:
 		};
 	}, [theme, coordinates]);
 
-	// Update map center when coordinates change
 	useEffect(() => {
 		if (theme?.type !== 'topographic' || !leafletMapRef.current || !coordinates) return;
 
 		leafletMapRef.current.setView([coordinates?.latitude, coordinates?.longitude], 15, { animate: true });
-
-		// Reset character position to map center
-		onLocationChange?.();
-	}, [coordinates, theme, onLocationChange]);
+	}, [coordinates, theme]);
 
 	// Auto-pan map when character approaches edge
 	useEffect(() => {
@@ -129,8 +124,8 @@ export const GameMap = ({ character, mapConfig, coordinates, onLocationChange }:
 		if (shouldPan) {
 			leafletMapRef.current.panTo(newCenter, {
 				animate: true,
-				duration: 0.02, // Lightning fast animation!
-				easeLinearity: 0.05, // Even more linear
+				duration: 0.02,
+				easeLinearity: 0.05,
 			});
 		}
 	}, [character.position, theme, width, height]);
@@ -161,7 +156,6 @@ export const GameMap = ({ character, mapConfig, coordinates, onLocationChange }:
 		'--map-bg-color': theme?.backgroundColor || '#f0f8ff',
 	} as CSSProperties;
 
-	// Determine background image URL based on coordinates (for topographic maps) or default
 	const backgroundImageUrl =
 		theme?.type === 'topographic' && coordinates
 			? getTileUrl(coordinates?.latitude, coordinates?.longitude)
