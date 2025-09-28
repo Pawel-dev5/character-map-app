@@ -34,8 +34,8 @@ const App = () => {
 			<header className="app-header">
 				<div className="header-content">
 					<div className="header-text">
-						<h1>{t('app.title')}</h1>
-						<p>{t('app.subtitle')}</p>
+						<h1 data-testid="app-title">{t('app.title')}</h1>
+						<p data-testid="app-subtitle">{t('app.subtitle')}</p>
 					</div>
 					<LanguageSwitcher />
 				</div>

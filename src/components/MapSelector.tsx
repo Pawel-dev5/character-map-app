@@ -167,7 +167,7 @@ export const MapSelector = ({ currentTheme, onThemeChange, onCoordinatesChange }
 	};
 
 	return (
-		<div className="map-selector">
+		<div className="map-selector" data-testid="map-selector">
 			{/* Category Tabs */}
 			<div className="map-category-tabs">
 				<button
@@ -269,6 +269,7 @@ export const MapSelector = ({ currentTheme, onThemeChange, onCoordinatesChange }
 				{filteredThemes?.map((theme) => (
 					<button
 						key={theme?.id}
+						data-testid={`map-theme-${theme?.id}`}
 						className={`theme-card ${currentTheme?.id === theme?.id ? 'active' : ''}`}
 						onClick={() => onThemeChange(theme?.id)}
 						aria-pressed={currentTheme?.id === theme?.id}

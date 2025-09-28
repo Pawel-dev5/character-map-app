@@ -17,8 +17,7 @@ describe('Character Creation and Movement Flow', () => {
 	});
 
 	it('should complete full character creation and movement flow', () => {
-		// Initial data
-		cy.contains('h1', 'Character on Map').should('be.visible');
+		cy.get('[data-testid="app-title"]').should('be.visible');
 		cy.setCharacterName('Cypress Hero');
 		cy.get('input[type="text"]').first().should('have.value', 'Cypress Hero');
 		cy.setCharacterColor('#ff0000');
@@ -35,7 +34,6 @@ describe('Character Creation and Movement Flow', () => {
 		// Character appears on map with correct name
 		cy.get('[data-testid="character-name"], [class*="character-name"]').should('be.visible').and('contain', 'Cypress Hero');
 
-		// Test character movement
 		cy.moveCharacter('up', 2);
 		cy.moveCharacter('right', 3);
 		cy.moveCharacter('down', 1);

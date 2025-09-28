@@ -33,9 +33,13 @@ export const Character = ({ character, mapConfig }: CharacterProps) => {
 	const AvatarComponent = AvatarComponents[avatarType as keyof typeof AvatarComponents];
 
 	return (
-		<div className="character" style={cssVars}>
-			{name && <div className="character-name">{name}</div>}
-			<div className="character-avatar">
+		<div className="character" data-testid="character" style={cssVars}>
+			{name && (
+				<div className="character-name" data-testid="character-name">
+					{name}
+				</div>
+			)}
+			<div className="character-avatar" data-testid="character-avatar">
 				{AvatarComponent !== 'basic' && AvatarComponent ? (
 					<AvatarComponent />
 				) : (
