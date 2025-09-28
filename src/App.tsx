@@ -1,11 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { Suspense, lazy } from 'react';
 
 // Components
 import { CharacterForm } from './components/CharacterForm';
-import { GameMap } from './components/GameMap';
 import { MapSelector } from './components/MapSelector';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { Instructions } from './components/Instructions';
+
+// Lazy load the GameMap component since it uses the heavy Leaflet library
+const GameMap = lazy(() => import('./components/GameMap').then((module) => ({ default: module.GameMap })));
 
 // Hooks
 import { useCharacter } from './hooks/useCharacter';
@@ -40,17 +43,19 @@ const App = () => {
 
 			<main className="app-main">
 				<div className="right-panel">
-					<GameMap
-						character={character}
-						mapConfig={mapConfig}
-						coordinates={currentCoordinates}
-						onLocationChange={() => {
-							// Reset position only for topographic maps when location changes
-							// Keep position for gaming maps (pixel type)
-							const shouldReset = mapConfig.theme.type === 'topographic';
-							resetCharacterPosition(shouldReset);
-						}}
-					/>
+					<Suspense fallback={<div className="loading-spinner">{t('common.loading')}</div>}>
+						<GameMap
+							character={character}
+							mapConfig={mapConfig}
+							coordinates={currentCoordinates}
+							onLocationChange={() => {
+								// Reset position only for topographic maps when location changes
+								// Keep position for gaming maps (pixel type)
+								const shouldReset = mapConfig.theme.type === 'topographic';
+								resetCharacterPosition(shouldReset);
+							}}
+						/>
+					</Suspense>
 					<Instructions />
 				</div>
 
