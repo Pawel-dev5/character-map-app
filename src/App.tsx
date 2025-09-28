@@ -43,7 +43,20 @@ const App = () => {
 
 			<main className="app-main">
 				<div className="right-panel">
-					<Suspense fallback={<div className="loading-spinner">{t('common.loading')}</div>}>
+					<Suspense
+						fallback={
+							<div
+								className="loading-spinner"
+								style={{
+									width: mapConfig.width * mapConfig.tileSize,
+									height: mapConfig.height * mapConfig.tileSize,
+									minHeight: 'unset',
+								}}
+							>
+								{t('common.loading')}
+							</div>
+						}
+					>
 						<GameMap character={character} mapConfig={mapConfig} coordinates={currentCoordinates} />
 					</Suspense>
 					<Instructions />
