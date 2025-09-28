@@ -96,6 +96,9 @@
     "polish": "Polski",
     "switchTo": "Przełącz na {{language}}"
   },
+  "common": {
+    "loading": "Ładowanie..."
+  },
   "errors": {
     "network": "Brak połączenia z internetem. Sprawdź połączenie sieciowe.",
     "timeout": "Żądanie przekroczyło limit czasu. Spróbuj ponownie.",

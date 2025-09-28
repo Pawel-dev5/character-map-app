@@ -96,6 +96,9 @@
     "polish": "Polski",
     "switchTo": "Switch to {{language}}"
   },
+  "common": {
+    "loading": "Loading..."
+  },
   "errors": {
     "network": "No internet connection. Check your network connection.",
     "timeout": "Request timed out. Please try again.",
